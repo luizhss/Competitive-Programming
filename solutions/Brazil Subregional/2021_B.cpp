@@ -1,11 +1,25 @@
 /*
-    Suffix Automaton
-    
-    Compressed form of all substrings of a given string.
+	Beautiful Words - 2020 LA Regional
 
-    Complexity:
-        construction -> O(nk), k is alphabet size
+	Prerequisites: RMQ data structure
 */
+
+#include <bits/stdc++.h>
+ 
+using namespace std;
+ 
+#define FOR(i, a) for(int i = 0; i < (int) a; i++)
+#define PB push_back
+#define all(x) x.begin(), x.end()
+#define rall(x) x.rbegin(), x.rend()
+#define F first
+#define S second
+ 
+typedef long long ll;
+typedef pair<int, int> pii;
+typedef vector<int> vi;
+ 
+const int MAX = 2e5+7, INF = 1e9+7;
 
 const int ALPHA = 27;
 struct SuffixAutomaton{
@@ -16,13 +30,6 @@ struct SuffixAutomaton{
         len[0] = 0;
         link[0] = -1;
         memset(next[0], -1, sizeof next[0]);
-    }
-
-    SuffixAutomaton(string& s) : sz(1), last(0) {
-        len[0] = 0;
-        link[0] = -1;
-        memset(next[0], -1, sizeof next[0]);
-        for(auto c: s) add(c);
     }
 
     int toi(char c) {
@@ -58,11 +65,10 @@ struct SuffixAutomaton{
         last = cur;
     }
 
-    // Applications:
-    void lcs (string s) { // O(size(s))
-        int v = 0, l = 0, best = 0, bestpos = 0;
-        FOR(i, s.size()) {
-            int c = toi(s[i]);
+    void lcs (string T, vi& dp) {
+        int v = 0, l = 0;
+        FOR(i, T.size()) {
+            int c = toi(T[i]);
             while (v && next[v][c] == -1) {
                 v = link[v];
                 l = len[v];
@@ -71,17 +77,51 @@ struct SuffixAutomaton{
                 v = next[v][c];
                 l++;
             }
-            if (l > best) {
-                best = l;
-                bestpos = i;
-            }
+            dp.PB(l);
         }
-        return s.substr(bestpos - best + 1, best);
-    }
-
-    long long distinct_substrings() {
-        long long ans = 0;
-        for (int i = 1; i < sz; i++) ans += len[i] - len[link[i]];
-        return ans;
-    }
+    } 
 };
+ 
+int main(){
+	ios::sync_with_stdio(false); cin.tie(0);
+ 
+	int n, m; cin >> n >> m;
+	string s; cin >> s;
+	s = s + s;
+	string t = "";
+	FOR(i, m){
+		string x; cin >> x;
+		t = t + "$" + x;
+	}
+
+    SuffixAutomaton sa;
+    for(auto& c : t) sa.add(c);
+
+    vi dp;
+	sa.lcs(s, dp);
+
+	int ans = 1e9;
+	multiset<int> vis;
+	int l = 2*n-1;
+	for(int i = 2*n-1; i > n-1; i--){
+		int lx = i-n+1;
+        l = min(l, i);
+		while(l >= lx && l-lx+1 >= dp[l]){
+			vis.insert(dp[l--]);
+		}
+
+		int cur = l-lx+1;
+		if(!vis.empty()){
+			cur = max(cur, *prev(vis.end()));
+		}
+		ans = min(ans, cur);
+
+		if(!vis.empty()){
+			vis.erase(vis.find(dp[i]));
+		}
+	}
+
+	cout << ans << '\n';
+ 
+	return 0;
+}

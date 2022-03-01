@@ -1,9 +1,7 @@
 /*
     Keylogger - 2020 LA Regional
-*/
 
-/*
-    Keylogger - 2020 LA Regional
+    requires: RMQ structure
 */
 
 #include <bits/stdc++.h>

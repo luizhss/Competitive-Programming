@@ -30,7 +30,7 @@ struct sparse_table{
 		for(int i = 2; i <= n; i++)
 			log[i] = log[i/2] + 1;
 
-		while((1<<k) <= n)	k++;
+		while((1<<k) <= n) k++;
 		for(int i = 0; i < n; i++){
 			v[i].resize(k);
 			v[i][0] = arr[i];

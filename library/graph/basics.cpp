@@ -1,8 +1,5 @@
-/*
-	
+/*	
 	Basic graphs algorithms
-
-
 */
 
 vi graph[MAX];

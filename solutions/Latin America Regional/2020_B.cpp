@@ -1,11 +1,5 @@
 /*
-	Beautifil Mountains - 2020 LA Regional
-
-	Prerequisites: RMQ data structure
-*/
-
-/*
-	Beautifil Mountains - 2020 LA Regional
+	Beautiful Mountains - 2020 LA Regional
 
 	Prerequisites: RMQ data structure
 */

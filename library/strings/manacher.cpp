@@ -1,10 +1,10 @@
 /*
-Manacher algorithm (Longest Palindromic String)
+    Manacher algorithm (Longest Palindromic String)
 
-Find the longest palindromic substring given a string s.
+    Find the longest palindromic substring given a string s.
 
-Complexity:
-manacher() -> O(n)
+    Complexity:
+        manacher() -> O(n)
 */
 
 int lps[2*N+5];

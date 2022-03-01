@@ -93,8 +93,8 @@ struct SegTree{
         }
 
         int q = (lx + rx)/2;
-        update(2*pos+1, lx, q, idx, x);
-        update(2*pos+2, q+1, rx, idx, x);
+        update(2*pos+1, lx, q, l, r, x);
+        update(2*pos+2, q+1, rx, l, r, x);
         seg[pos] = merge(seg[2*pos+1], seg[2*pos+2]);
     }
 };
