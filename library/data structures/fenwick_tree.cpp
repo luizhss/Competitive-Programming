@@ -31,7 +31,7 @@ struct FenwickTree{
 		for(int i = 1; i <= size; i++){
 			v[i] += arr[i-1];
 			if(i + (i&(-i)) <= size){
-				v[i + (i&(-i))] += arr[i-1]; 
+				v[i + (i&(-i))] += v[i]; 
 			}
 		}
 	}
